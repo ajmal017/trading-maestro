@@ -1,0 +1,561 @@
+/*
+Copyright 2014, Pablo Daniel Poveda Stahl
+
+This file is part of Trading Maestro.
+
+Trading Maestro is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Trading Maestro is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Trading Maestro.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+@import 'bootstrap-sass-3.1.1/vendor/assets/stylesheets/bootstrap.scss';
+
+// variables
+$light-blue: rgb(91, 192, 222); // #5bc0de
+$orange: rgb(240, 173, 78); // #f0ad4e
+$red: rgb(217, 83, 79);
+$light-gray: #f6f6f6;
+$dark-gray: #888;
+$statusbar-padding: 0.15em;
+$z-loading-screen: 9999;
+$z-menu: 200;
+$z-screen-blocker: 100;
+$z-normal: 0;
+
+
+// mixins
+@mixin bs-rounded-corners($radius: $border-radius-base) {
+	border-radius: $radius;
+}
+
+@mixin bs-blur($strength: 1px) {
+	-webkit-filter: blur($strength);
+	-moz-filter: blur($strength);
+	-o-filter: blur($strength);
+	-ms-filter: blur($strength);
+	filter: blur($strength);
+}
+
+@mixin bs-radial($colors...) {
+	background: -webkit-radial-gradient($colors);
+	background: -o-radial-gradient($colors);
+	background: -moz-radial-gradient($colors);
+	background: radial-gradient($colors);
+}
+
+@mixin bs-box-shadow($arguments...) {
+	-webkit-box-shadow: $arguments;
+	-mox-box-shadow: $arguments;
+	box-shadow: $arguments;
+}
+
+@mixin bs-text-outline($color: #fff, $size: 1px) {
+	$minusSize: -$size;
+	text-shadow:
+		$minusSize $minusSize 0 $color,
+		$size $minusSize 0 $color,
+		$minusSize $size 0 $color,
+		$size $size 0 $color
+}
+
+@mixin bs-transition($arguments...) {
+	-webkit-transition: $arguments;
+	-moz-transition: $arguments;
+	-o-transition: $arguments;
+	transition: $arguments;
+}
+
+// basic styles
+
+html, body {
+	height: 100%;
+}
+
+body {
+	overflow-x: hidden;
+}
+
+// semantic elements
+
+.bs-button {
+	font-size: 1em;
+}
+
+h3 {
+	font-size: 1.8em;
+}
+
+h4 {
+	font-size: 1.3em;
+}
+
+.bs-loading-screen {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: white;
+	z-index: $z-loading-screen;
+	display: table;
+	div {
+		display: table-cell;
+		vertical-align: middle;
+		img {
+			margin: 0 auto;
+			display: block;
+		}
+	}
+}
+
+.bs-screen {
+	@extend .col-sm-4;
+	@extend .col-sm-offset-4;
+	@extend .col-xs-12;
+	@extend .text-center;
+	height: 100%;
+}
+
+.bs-menu {
+	@extend .col-xs-12;
+	@extend .col-sm-6;
+	position: absolute;
+	left: 0;
+	text-align: left;
+	padding: 0;
+	z-index: $z-menu;
+}
+
+.bs-menu-title {
+	padding: 0.15em 0 0 0.15em;
+	margin-bottom: 0.15em;
+	a {
+		color: $light-blue;
+		background: white;
+		padding: 0.1em 0.35em;
+		border-radius: 0.3em;
+	}
+	a:hover {
+		cursor: pointer;
+		border: 1px solid rgb(38, 154, 188);
+	}
+	i:hover {
+		color: rgb(57, 179, 215);
+	}
+	.bs-highlight {
+		@include bs-box-shadow(-1px -1px 3px $orange inset);
+	}
+}
+
+.bs-menu-items {
+	background: white;
+	border-radius: 0 0.5em 0.5em 0;
+	border-right: 1px solid $light-gray;
+	overflow: hidden;
+	display: none;
+	ul {
+		@extend .bs-menu-items-list;
+	}
+}
+
+.bs-menu-items-list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	li {
+		padding: 1em 0;
+		border-bottom: 1px solid $light-gray;
+		color: $dark-gray;
+	}
+	li:last {
+		border-bottom: none;
+	}
+	li:hover {
+		background: $light-gray;
+		cursor: pointer;
+	}
+	li:active {
+		background: $light-gray;
+	}
+}
+
+.bs-modal {
+	@extend .modal;
+	@extend .fade;
+}
+
+.bs-modal-dialog {
+	@extend .modal-dialog;
+}
+
+.bs-modal-container {
+	@extend .modal-content;
+}
+
+.bs-modal-header {
+	@extend .modal-header;
+	font-size: 1.4em;
+	line-height: 1.4em;
+	color: white;
+	border-bottom: 1px solid $orange;
+	@include bs-radial(rgba(darken($light-blue, 10.5%), .7), rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+	@include bs-text-outline(#000);
+}
+
+.bs-modal-body {
+	@extend .modal-body;
+	max-height: 70vh;
+	overflow-y: auto;
+}
+
+.bs-modal-footer {
+	@extend .modal-footer;
+	margin-top: 0;
+	border-top: 1px solid $orange;
+}
+
+.bs-dialog-container {
+	@extend .bs-modal;
+}
+
+.bs-dialog {
+	@extend .bs-modal-dialog;
+}
+
+.bs-dialog-content {
+	@extend .bs-modal-container;
+}
+
+.bs-dialog-header {
+	@extend .bs-modal-header;
+}
+
+.bs-dialog-body {
+	@extend .bs-modal-body;
+	padding: 0;
+	ul {
+		@extend .bs-menu-items-list;
+	}
+}
+
+.bs-dialog-footer {
+	@extend .bs-modal-footer;
+	button {
+		@extend .btn;
+		@extend .btn-default;
+	}
+}
+
+.bs-scenario-menu, .bs-language-menu, .bs-highscore-reset-menu, .bs-feedback-dialog, .bs-about-dialog, .bs-highscore-table, .bs-disclaimer-dialog {
+	.bs-dialog {
+		@extend .modal-sm;
+	}
+}
+
+.bs-help {
+	.bs-dialog-body {
+		text-align: justify;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	h4 {
+		text-align: center;
+		&:not(.bs-first) {
+			padding-top: 2em;
+		}
+	}
+	img {
+		width: auto;
+		display: block;
+		margin: 2em auto 1em auto;
+		max-width: 100%;
+	}
+}
+
+.bs-highscore-reset-menu .bs-dialog-body div {
+	margin: 0;
+	padding-top: 1em;
+	padding-bottom: 1em;
+}
+
+.bs-feedback-dialog {
+	form {
+		padding: 1em;
+		div {
+			text-align: left;
+		}
+		textarea {
+			width: 100%;
+			height: 15em;
+			resize: none;
+		}
+	}
+	.bs-send {
+		@extend .btn-info;
+	}
+}
+
+.bs-about-dialog {
+	.bs-dialog-body {
+		text-align: center;
+		padding-bottom: 1em;
+	}
+	.bs-disclaimer {
+		@extend .btn-info;
+	}
+}
+
+.bs-disclaimer-dialog {
+	.bs-dialog-body {
+		text-align: justify;
+		padding-left: 1em;
+		padding-right: 1em;
+		div {
+			margin-top: 1em;
+			margin-bottom: 1em;
+		}
+	}
+}
+
+.bs-status-bar {
+	@extend .row;
+	color: white;
+	background-color: $light-blue;
+	padding: $statusbar-padding 0;
+	@media(min-width: $screen-tablet) {
+		@include bs-rounded-corners();
+	}
+}
+
+.bs-screen-blocker { 
+	position: absolute;
+	left: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background-color: black;
+	opacity: 0.5;
+	z-index: $z-screen-blocker;
+	display: none;
+}
+
+.bs-highscore-table-body {
+	@extend .bs-modal-body;
+	padding-top: 0;
+	padding-bottom: 0;
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		li {
+			padding: 0.5em 0;
+			border-bottom: 1px solid $light-gray;
+			color: $dark-gray;
+		}
+		li:last {
+			border-bottom: none;
+		}
+	}
+	.bs-highlight {
+		color: $orange;
+	}
+}
+
+.bs-highscore-table-footer {
+	@extend .bs-modal-footer;
+	margin-top: 0;
+	padding-top: 15px;
+	button {
+		@extend .btn;
+		@extend .btn-info;
+		margin-top: 4px;
+	}
+	button.bs-goto-main-menu {
+		@extend .btn-default;
+	}
+}
+
+.bs-chart {
+	@extend .row;
+}
+
+.bs-scenario-progress {
+	@extend .progress;
+	@extend .row;
+	position: relative;
+	margin-bottom: 1.5%;
+	height: 1em;
+	line-height: 1em;
+	span {
+		position: absolute;
+		left: 0;
+		right: 0;
+		color: white;
+	}
+}
+
+.bs-outline-info {
+	@include bs-text-outline($light-blue);
+}
+
+.bs-outline-warning {
+	@include bs-text-outline($orange);
+}
+
+.bs-outline-danger {
+	@include bs-text-outline($red);
+}
+
+.bs-progress-bar {
+	@extend .progress-bar;
+	@include bs-transition(none);
+}
+
+.bs-dashboard {
+	@extend .row;
+}
+
+.bs-indicator-buttons {
+	min-height: 15%;
+}
+
+.bs-indicator-button-container {
+	@extend .col-xs-3;
+}
+
+.bs-indicator-button {
+	&:not(.bs-highlight) {
+		@extend .btn-info;
+	}
+	&.bs-highlight {
+		@extend .btn-warning;
+	}
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.bs-price {
+	@extend .row;
+	font-size: 1.5em;
+}
+
+.bs-player-stats {
+	@extend .row;
+	display: table;
+	width: 100%;
+	margin: 0;
+}
+
+.bs-player-stat {
+	@extend .col-xs-6;
+	display: table-cell;
+	vertical-align: middle;
+	float: none;
+	height: 6em;
+	line-height: 1.5em;
+	width: 50%;
+}
+
+.bs-player-stat-value {
+	font-size: 1.5em; 
+}
+
+.bs-button {
+	@extend .btn;
+}
+
+.bs-controls {
+	.bs-highlight {
+		@include bs-box-shadow(1px 1px 10px black);
+		z-index: $z-normal;
+	}
+}
+
+.bs-control-buttons {
+	@extend .btn-group;
+	@extend .col-xs-12;
+	margin: 0;
+	padding: 0;
+	button {
+		height: 4.5em;
+		white-space: normal;
+	}
+}
+
+.bs-all-in-button {
+	@extend .col-xs-6;
+}
+
+.bs-short-button {
+	@extend .btn;
+	@extend .btn-danger;
+}
+
+.bs-long-button {
+	@extend .btn;
+	@extend .btn-success;
+}
+
+.bs-half-button {
+	@extend .col-xs-4;
+	opacity: 0.7;
+}
+
+.bs-close-button {
+	@extend .btn;
+	@extend .btn-default;
+	@extend .col-xs-4;
+}
+
+.bs-overlay-menu {
+	@extend .row;
+}
+
+.bs-new-game-button-container {
+	@extend .col-xs-12;
+	position: absolute;
+	bottom: 1.6em;
+	.bs-button {
+		width: 80%;
+		font-size: 1.6em;
+		padding: 1em 0;
+		color: rgba(0, 0, 0, 0.5);
+		opacity: 0.92;
+		border: 1em solid rgba(0, 0, 0, 0.5);
+		-webkit-background-clip: padding-box;
+		-moz-background-clip: padding;
+		background-clip: padding-box;
+	}
+}
+
+// state decorators
+
+.bs-is-disabled {
+	@extend .disabled;
+}
+
+.bs-is-blurred {
+	@include bs-blur(2px);
+}
+
+// decorators
+
+.flotr-grid-label {
+	font-weight: bold;
+	&.last {
+		@include bs-text-outline();
+	}
+}
+
+.bs-debug-border {
+	border: 1px solid red !important;
+}

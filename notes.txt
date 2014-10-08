@@ -1,0 +1,45 @@
+TODO:
+- make video and post on youtube
+- make app version and post on appstores
+- fix manifest
+- minify and compress js for online version
+- icon (favicon and maybe installation icon for mobile devices)
+- testing on as many devices as possible (get other people to test)
+- bugfixing
+- proper loader
+- ranking system (e.g. bronze trader, gold trader, etc.)
+- central high score
+- share buttons, like fb and twitter
+- mobile version with phonegap or similar
+
+
+NAMES:
+Game of Stocks -> one already exists
+(A) Game of Trades
+Sexy Action Stocks
+Sexy Action Technical Analyst
+Wallstreet, Wallstreet in a box
+The Genius Trader
+Gecko (Trader) or Gekko or Gekko - A game of trades or Gekko - A trading game or Gekko - A game of stocks
+Elements are trading, technical analysis, speed, action, learning, fun
+Power Trader / Power Stocks
+Trading Trainer
+Trading Academy
+The Daily Trade(r)
+Trading Work-out
+Your daily dose of trading (fun)
+The Trading Game
+The Blue Horseshoe
+Suspenders
+Anacott Steel
+Street Trader II
+Mortal Trading
+Trading Master, Trading Maestro, Technical Maestro
+Wallstreet Maestro
+Live for Trading
+Master of Stocks, Master of Trades
+Live for the trade
+The Trade
+The Trader's Game
+Trader's Delight
+Professional Trader

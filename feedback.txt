@@ -1,0 +1,4 @@
+feedback
+myself: make sma 10 a bit shorter (like 7 - 9, but not shorter), random scenario start and end from encar + being able to choose the length, and maybe the starting/end points as well
+encar + santi: sma 20 and sma 65, fullscreen on normal pc, more candles, more indicators, scenarios are longer and start and end at random subsets of the total length
+through form: make indicators configurable, make speed configurable
